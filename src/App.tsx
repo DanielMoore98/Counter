@@ -9,8 +9,8 @@ export const App = () => {
     const [count, setCount] = useState<number>(0)
     const [error, setError] = useState<boolean>(false)
     const [focused, setFocused] = useState<boolean>(false)
-    const [tempMaxValue, setTempMaxValue] = useState<number>(Number(localStorage.getItem("maxValue")));
-    const [tempStartValue, setTempStartValue] = useState<number>(Number(localStorage.getItem("startValue")));
+    const [tempMaxValue, setTempMaxValue] = useState<number>(0);
+    const [tempStartValue, setTempStartValue] = useState<number>(0);
 
     useEffect(() => {
         let countString = localStorage.getItem("countValue")
@@ -21,9 +21,11 @@ export const App = () => {
         }
         if(maxValueString){
             setMaxValue(JSON.parse(maxValueString))
+            setTempMaxValue(JSON.parse(maxValueString))
         }
         if (startValueString){
             setStartValue(JSON.parse(startValueString))
+            setTempStartValue(JSON.parse(startValueString))
         }
     }, [])
 
