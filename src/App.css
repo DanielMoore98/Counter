@@ -1,0 +1,120 @@
+
+.App {
+    display: flex;
+    gap: 50px;
+}
+
+
+.whole-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 300px;
+    border: 2px solid #1fd8d8;
+    padding: 20px 0;
+    border-radius: 10px;
+
+}
+
+.numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    border: 2px solid #1fd8d8;
+    padding: 10px;
+
+}
+. numbers p {
+    font-size: large;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid #1fd8d8;
+    border-radius: 5px;
+    height: 60px;
+    width: 200px;
+}
+
+.button {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    height: 30px;
+    width: 60px;
+    border-radius: 5px;
+    background: #1fd8d8;
+}
+
+.button:disabled {
+    opacity: 0.5;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:active {
+    transform: scale(0.9);
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 300px;
+    border: 2px solid #1fd8d8;
+    padding: 20px 0;
+    border-radius: 10px;
+
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    border: 2px solid #1fd8d8;
+    padding: 10px;
+
+}
+
+.input-line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+label {
+    font-size: x-large;
+    color: #1fd8d8;
+}
+
+
+.input {
+    text-align: center;
+    width: 100px;
+    height: 25px;
+    border: 2px solid #1fd8d8;
+    border-radius: 5px;
+    outline: none;
+}
+
+.input-error {
+    width: 100px;
+    height: 25px;
+    background-color: #f36666;
+}
