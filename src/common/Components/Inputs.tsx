@@ -49,13 +49,15 @@ export const Inputs = ({
         setFocused(true)
     }
 
+    const className = (tempMaxValue === tempStartValue) || (tempMaxValue <= 0)
+    && error ? "input-error" : "input"
+
     return (
             <div className="input-wrapper">
                 <div className={"input-line"}>
                     <label htmlFor={"1"}>Max value:</label>
                     <input id={"1"}
-                           className={(tempMaxValue === tempStartValue) || (tempMaxValue <= 0)
-                           && error ? "input-error" : "input"}
+                           className={className}
                            defaultValue={tempMaxValue}
                            type={"number"}
                            onChange={setCountMaxValueHandler}

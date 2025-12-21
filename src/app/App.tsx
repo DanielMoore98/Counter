@@ -11,7 +11,7 @@ import {maxValueSelector} from "../features/model/maxValue/maxValue-selector.ts"
 
 export const App = () => {
     const [error, setError] = useState<boolean>(false)
-    const [focused, setSettingsFocused] = useState<boolean>(false)
+    const [settingsFocused, setSettingsFocused] = useState<boolean>(false)
 
 
     // useEffect(() => {
@@ -59,7 +59,7 @@ export const App = () => {
                 setError={setError}
                 setFocused={setSettingsFocused}
                 error={error}
-                focus={focused}
+                focus={settingsFocused}
             />
             <Counter
                 count={count}
@@ -68,7 +68,7 @@ export const App = () => {
                 increment={increment}
                 reset={reset}
                 error={error}
-                focus={focused}
+                focus={settingsFocused}
             />
         </div>
     )
