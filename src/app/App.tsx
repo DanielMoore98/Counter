@@ -1,13 +1,13 @@
 import './App.css'
 import {useState} from "react";
-import {Counter} from "./common/Components/Counter.tsx";
-import {ValueSettings} from "./common/Components/ValueSettings.tsx";
-import {counterSelector} from "./features/model/counter/counter-selector.ts";
-import {useAppSelector} from "./common/hooks/useAppSelector.ts";
-import {useAppDispatch} from "./common/hooks/useAppDispatch.ts";
-import {incrementAC, resetAC} from "./features/model/counter/counter-reducer.ts";
-import {startValueSelector} from "./features/model/startValue/startValue-selector.ts";
-import {maxValueSelector} from "./features/model/maxValue/maxValue-selector.ts";
+import {Counter} from "../common/Components/Counter.tsx";
+import {ValueSettings} from "../common/Components/ValueSettings.tsx";
+import {counterSelector} from "../features/model/counter/counter-selector.ts";
+import {useAppSelector} from "../common/hooks/useAppSelector.ts";
+import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
+import {incrementAC, resetAC} from "../features/model/counter/counter-reducer.ts";
+import {startValueSelector} from "../features/model/startValue/startValue-selector.ts";
+import {maxValueSelector} from "../features/model/maxValue/maxValue-selector.ts";
 
 export const App = () => {
     const [error, setError] = useState<boolean>(false)
