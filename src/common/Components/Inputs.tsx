@@ -1,4 +1,4 @@
-import {ChangeEvent, Dispatch, SetStateAction, useEffect, useState} from "react";
+import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
 import {useAppDispatch} from "../hooks/useAppDispatch.ts";
 import {setStartValueAC} from "../../features/model/startValue/startValue-reducer.ts";
 import {setMaxValueAC} from "../../features/model/maxValue/maxValue-reducer.ts";
@@ -25,15 +25,14 @@ export const Inputs = ({
 
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        if (tempMaxValue < tempStartValue || tempStartValue < 0 || tempMaxValue === tempStartValue) {
-            setError(true);
-            setDisabled(true);
-        } else {
-            setError(false);
-            setDisabled(false);
-        }
-    }, [tempMaxValue, tempStartValue])
+
+    if (tempMaxValue < tempStartValue || tempStartValue < 0 || tempMaxValue === tempStartValue) {
+        setError(true);
+        setDisabled(true);
+    } else {
+        setError(false);
+        setDisabled(false);
+    }
 
     const setCountMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTempMaxValue(JSON.parse(e.currentTarget.value))
