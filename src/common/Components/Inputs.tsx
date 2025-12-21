@@ -1,30 +1,29 @@
-import {ChangeEvent, Dispatch, SetStateAction, useEffect} from "react";
+import {ChangeEvent, Dispatch, SetStateAction, useEffect, useState} from "react";
+import {useAppDispatch} from "../hooks/useAppDispatch.ts";
+import {setStartValueAC} from "../../features/model/startValue/startValue-reducer.ts";
+import {setMaxValueAC} from "../../features/model/maxValue/maxValue-reducer.ts";
 
 type PropsType = {
     error: boolean
     setFocused: Dispatch<SetStateAction<boolean>>
     setError: Dispatch<SetStateAction<boolean>>
     setDisabled: Dispatch<SetStateAction<boolean>>
-    tempMaxValue: number
-    tempStartValue: number
-    setTempMaxValue: Dispatch<SetStateAction<number>>
-    setTempStartValue: Dispatch<SetStateAction<number>>
+
 }
+
 
 export const Inputs = ({
                            error,
                            setFocused,
                            setError,
                            setDisabled,
-                           setTempMaxValue,
-                           setTempStartValue,
-                           tempStartValue,
-                           tempMaxValue
                        }: PropsType) => {
 
-    const displayMaxValue = Number(localStorage.getItem("maxValue"))
-    const displayStartValue = Number(localStorage.getItem("startValue"))
 
+    const [tempMaxValue, setTempMaxValue] = useState<number>(5);
+    const [tempStartValue, setTempStartValue] = useState<number>(0);
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (tempMaxValue < tempStartValue || tempStartValue < 0 || tempMaxValue === tempStartValue) {
@@ -38,16 +37,16 @@ export const Inputs = ({
 
     const setCountMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTempMaxValue(JSON.parse(e.currentTarget.value))
+        dispatch(setMaxValueAC(JSON.parse(e.currentTarget.value)))
     }
 
     const setCountStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTempStartValue(JSON.parse(e.currentTarget.value))
+        dispatch(setStartValueAC(JSON.parse(e.currentTarget.value)))
     }
 
     const setEnabledHandler = () => {
-        if (!error) {
-            setDisabled(false)
-        }
+        if (!error) setDisabled(false)
         setFocused(true)
     }
 
@@ -58,7 +57,7 @@ export const Inputs = ({
                     <input id={"1"}
                            className={(tempMaxValue === tempStartValue) || (tempMaxValue <= 0)
                            && error ? "input-error" : "input"}
-                           defaultValue={displayMaxValue}
+                           defaultValue={tempMaxValue}
                            type={"number"}
                            onChange={setCountMaxValueHandler}
                            onFocus={setEnabledHandler}
@@ -68,7 +67,7 @@ export const Inputs = ({
                     <label htmlFor={"2"}>Start value:</label>
                     <input id={"2"}
                            className={error ? "input-error" : "input"}
-                           defaultValue={displayStartValue}
+                           defaultValue={tempStartValue}
                            type={"number"}
                            onChange={setCountStartValueHandler}
                            onFocus={setEnabledHandler}

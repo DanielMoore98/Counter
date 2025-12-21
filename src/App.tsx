@@ -1,68 +1,65 @@
 import './App.css'
-import {useEffect, useState} from "react";
-import {Counter} from "./Components/Counter.tsx";
-import {ValueSettings} from "./Components/ValueSettings.tsx";
+import {useState} from "react";
+import {Counter} from "./common/Components/Counter.tsx";
+import {ValueSettings} from "./common/Components/ValueSettings.tsx";
+import {counterSelector} from "./features/model/counter/counter-selector.ts";
+import {useAppSelector} from "./common/hooks/useAppSelector.ts";
+import {useAppDispatch} from "./common/hooks/useAppDispatch.ts";
+import {incrementAC, resetAC} from "./features/model/counter/counter-reducer.ts";
+import {startValueSelector} from "./features/model/startValue/startValue-selector.ts";
+import {maxValueSelector} from "./features/model/maxValue/maxValue-selector.ts";
 
 export const App = () => {
-    const [startValue, setStartValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(0)
-    const [count, setCount] = useState<number>(0)
     const [error, setError] = useState<boolean>(false)
-    const [focused, setFocused] = useState<boolean>(false)
-    const [tempMaxValue, setTempMaxValue] = useState<number>(0);
-    const [tempStartValue, setTempStartValue] = useState<number>(0);
-
-    useEffect(() => {
-        let countString = localStorage.getItem("countValue")
-        let maxValueString = localStorage.getItem("maxValue")
-        let startValueString = localStorage.getItem("startValue")
-        if (countString) {
-            setCount(JSON.parse(countString))
-        }
-        if(maxValueString){
-            setMaxValue(JSON.parse(maxValueString))
-            setTempMaxValue(JSON.parse(maxValueString))
-        }
-        if (startValueString){
-            setStartValue(JSON.parse(startValueString))
-            setTempStartValue(JSON.parse(startValueString))
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('countValue', JSON.stringify(count))
-    }, [count])
-
-    useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    }, [maxValue]);
-
-    useEffect(() => {
-        localStorage.setItem('startValue', JSON.stringify(startValue))
-    }, [startValue]);
-
-    const increment = () => count < maxValue ? setCount(count => count + 1) : null
-    const reset = () => setCount(startValue)
+    const [focused, setSettingsFocused] = useState<boolean>(false)
 
 
-    const setValues = (start: number, max: number) => {
-        setMaxValue(max)
-        setStartValue(start)
-        setCount(start)
-    }
+    // useEffect(() => {
+    //     let countString = localStorage.getItem("countValue")
+    //     let maxValueString = localStorage.getItem("maxValue")
+    //     let startValueString = localStorage.getItem("startValue")
+    //     if (countString) {
+    //         setCount(JSON.parse(countString))
+    //     }
+    //     if(maxValueString){
+    //         setMaxValue(JSON.parse(maxValueString))
+    //         setTempMaxValue(JSON.parse(maxValueString))
+    //     }
+    //     if (startValueString){
+    //         setStartValue(JSON.parse(startValueString))
+    //         setTempStartValue(JSON.parse(startValueString))
+    //     }
+    // }, [])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('countValue', JSON.stringify(count))
+    // }, [count])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    // }, [maxValue]);
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('startValue', JSON.stringify(startValue))
+    // }, [startValue]);
+
+    const count = useAppSelector(counterSelector);
+    const startValue = useAppSelector(startValueSelector)
+    const maxValue = useAppSelector(maxValueSelector)
+
+    const dispatch = useAppDispatch();
+
+    const increment = () => {if (count < maxValue) dispatch(incrementAC())}
+    const reset = () => dispatch(resetAC(startValue))
+
 
     return (
         <div className="App">
             <ValueSettings
-                setValues={setValues}
                 setError={setError}
-                setFocused={setFocused}
+                setFocused={setSettingsFocused}
                 error={error}
                 focus={focused}
-                setTempMaxValue={setTempMaxValue}
-                setTempStartValue={setTempStartValue}
-                tempMaxValue={tempMaxValue}
-                tempStartValue={tempStartValue}
             />
             <Counter
                 count={count}
