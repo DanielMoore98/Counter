@@ -1,17 +1,28 @@
 import {Button} from "./Button.tsx";
+import {useAppSelector} from "../hooks/useAppSelector.ts";
+import {incrementValueAC, setValueAC} from "../../features/model/counter/counter-reducer.ts";
+import {useAppDispatch} from "../hooks/useAppDispatch.ts";
+import {
+    errorSelector, maxValueSelector,
+    settingFocusedSelector,
+    startValueSelector,
+    valueSelector
+} from "../../features/model/counter/selectors.ts";
 
-type propsType = {
-    count: number
-    maxValue: number
-    startValue: number
-    increment: () => void
-    reset: () => void
-    error: boolean
-    focus: boolean
-}
 
-export const Counter = ({count, maxValue, startValue, increment, reset, error, focus}: propsType) => {
 
+export const Counter = () => {
+    const error: boolean = useAppSelector(errorSelector)
+    const focus: boolean = useAppSelector(settingFocusedSelector)
+    const dispatch = useAppDispatch();
+    const count: number = useAppSelector(valueSelector);
+    const startValue: number = useAppSelector(startValueSelector)
+    const maxValue: number = useAppSelector(maxValueSelector)
+
+    const increment = () => {
+        if (count < maxValue) dispatch(incrementValueAC())
+    }
+    const reset = () => dispatch(setValueAC(startValue))
     return (
         <div className={"whole-counter"}>
             <div className={"numbers"}>
